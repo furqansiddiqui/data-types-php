@@ -1,0 +1,27 @@
+{
+  "name": "furqansiddiqui/data-types-php",
+  "description": "PHP data types handling tool",
+  "type": "library",
+  "homepage": "https://github.com/furqansiddiqui/data-types-php",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Furqan A. Siddiqui",
+      "email": "hello@furqansiddiqui.com",
+      "homepage": "https://www.furqansiddiqui.com",
+      "role": "Author"
+    }
+  ],
+  "require": {
+    "php": "^7.2",
+    "ext-mbstring": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "furqansiddiqui\\DataTypes\\": [
+        "src"
+      ]
+    }
+  },
+  "minimum-stability": "dev"
+}
