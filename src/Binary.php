@@ -12,15 +12,15 @@
 
 declare(strict_types=1);
 
-namespace furqansiddiqui\DataTypes;
+namespace FurqanSiddiqui\DataTypes;
 
-use furqansiddiqui\DataTypes\Buffer\AbstractBuffer;
-use furqansiddiqui\DataTypes\Buffer\Binary\Encoder;
-use furqansiddiqui\DataTypes\Buffer\Binary\Hashing;
+use FurqanSiddiqui\DataTypes\Buffer\AbstractBuffer;
+use FurqanSiddiqui\DataTypes\Buffer\Binary\Encoder;
+use FurqanSiddiqui\DataTypes\Buffer\Binary\Hashing;
 
 /**
  * Class Binary
- * @package furqansiddiqui\DataTypes
+ * @package FurqanSiddiqui\DataTypes
  */
 class Binary extends AbstractBuffer
 {

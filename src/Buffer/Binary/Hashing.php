@@ -12,14 +12,14 @@
 
 declare(strict_types=1);
 
-namespace furqansiddiqui\DataTypes\Buffer\Binary;
+namespace FurqanSiddiqui\DataTypes\Buffer\Binary;
 
-use furqansiddiqui\DataTypes\Binary;
-use furqansiddiqui\DataTypes\Buffer\AbstractBuffer;
+use FurqanSiddiqui\DataTypes\Binary;
+use FurqanSiddiqui\DataTypes\Buffer\AbstractBuffer;
 
 /**
  * Class Hashing
- * @package furqansiddiqui\DataTypes\Buffer\Binary
+ * @package FurqanSiddiqui\DataTypes\Buffer\Binary
  */
 class Hashing
 {

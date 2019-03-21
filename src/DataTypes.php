@@ -12,11 +12,11 @@
 
 declare(strict_types=1);
 
-namespace furqansiddiqui\DataTypes;
+namespace FurqanSiddiqui\DataTypes;
 
 /**
  * Class DataTypes
- * @package furqansiddiqui\DataTypes
+ * @package FurqanSiddiqui\DataTypes
  */
 class DataTypes
 {

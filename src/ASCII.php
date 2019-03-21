@@ -12,13 +12,13 @@
 
 declare(strict_types=1);
 
-namespace furqansiddiqui\DataTypes;
+namespace FurqanSiddiqui\DataTypes;
 
-use furqansiddiqui\DataTypes\Buffer\AbstractStringType;
+use FurqanSiddiqui\DataTypes\Buffer\AbstractStringType;
 
 /**
  * Class ASCII
- * @package furqansiddiqui\DataTypes
+ * @package FurqanSiddiqui\DataTypes
  */
 class ASCII extends AbstractStringType
 {

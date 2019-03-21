@@ -12,12 +12,12 @@
 
 declare(strict_types=1);
 
-namespace furqansiddiqui\DataTypes\Buffer;
+namespace FurqanSiddiqui\DataTypes\Buffer;
 
 /**
  * Class AbstractStringType
  * This class should be extended to define Strings as custom data types for type hinting purposes
- * @package furqansiddiqui\DataTypes\Buffer
+ * @package FurqanSiddiqui\DataTypes\Buffer
  */
 abstract class AbstractStringType extends AbstractBuffer
 {

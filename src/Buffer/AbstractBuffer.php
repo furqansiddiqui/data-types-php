@@ -12,11 +12,11 @@
 
 declare(strict_types=1);
 
-namespace furqansiddiqui\DataTypes\Buffer;
+namespace FurqanSiddiqui\DataTypes\Buffer;
 
 /**
  * Class AbstractBuffer
- * @package furqansiddiqui\DataTypes\Buffer
+ * @package FurqanSiddiqui\DataTypes\Buffer
  * @property-read int $sizeInBytes
  */
 abstract class AbstractBuffer

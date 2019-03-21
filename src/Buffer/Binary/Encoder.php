@@ -12,13 +12,13 @@
 
 declare(strict_types=1);
 
-namespace furqansiddiqui\DataTypes\Buffer\Binary;
+namespace FurqanSiddiqui\DataTypes\Buffer\Binary;
 
-use furqansiddiqui\DataTypes\Binary;
+use FurqanSiddiqui\DataTypes\Binary;
 
 /**
  * Class Encoder
- * @package furqansiddiqui\DataTypes\Buffer\Binary
+ * @package FurqanSiddiqui\DataTypes\Buffer\Binary
  */
 class Encoder
 {
