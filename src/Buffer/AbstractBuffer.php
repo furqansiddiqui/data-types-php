@@ -103,6 +103,39 @@ abstract class AbstractBuffer
     }
 
     /**
+     * @param int|null $start
+     * @param int|null $length
+     * @return $this
+     */
+    public function substr(?int $start = null, ?int $length = null)
+    {
+        if (!$start && !$length) {
+            throw new \InvalidArgumentException('Both start/end arguments cannot be empty');
+        }
+
+        $data = $this->data;
+        if (is_int($start)) {
+            $data = is_int($length) ? substr($data, $start, $length) : substr($data, $start);
+            if ($data === false) {
+                throw new \UnexpectedValueException('Unexpected fail after applying substr');
+            }
+        }
+
+        $this->set($data);
+        return $this;
+    }
+
+    /**
+     * @param int|null $start
+     * @param int|null $length
+     * @return AbstractBuffer
+     */
+    public function trim(?int $start = null, ?int $length = null)
+    {
+        return $this->substr($start, $length);
+    }
+
+    /**
      * @param bool $set
      * @return AbstractBuffer
      */
