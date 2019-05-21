@@ -137,9 +137,9 @@ abstract class AbstractBuffer
 
     /**
      * @param bool $set
-     * @return AbstractBuffer
+     * @return $this
      */
-    public function readOnly(bool $set = true): self
+    public function readOnly(bool $set = true)
     {
         $this->readOnly = $set;
         return $this;
