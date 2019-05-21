@@ -39,7 +39,7 @@ class Base16 extends Binary
     }
 
     /**
-     * Checks if argument is valid Base16, and removes "0x" prefix if found
+     * Checks if argument is valid Base16, evens if uneven, and removes "0x" prefix if found
      * @param $val
      * @return string
      */
@@ -47,6 +47,10 @@ class Base16 extends Binary
     {
         if (!DataTypes::isBase16($val)) {
             throw new \InvalidArgumentException('First argument must be a Hexadecimal value');
+        }
+
+        if (strlen($val) % 2 !== 0) {
+            $val = "0" . $val;
         }
 
         return substr($val, 0, 2) === "0x" ? substr($val, 2) : $val;
