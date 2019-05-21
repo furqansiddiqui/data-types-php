@@ -35,7 +35,7 @@ class Base64 extends Binary
             throw new \UnexpectedValueException('Base64 decode failed');
         }
 
-        parent::__construct($data);
+        parent::__construct($decoded);
     }
 
     /**
