@@ -49,10 +49,16 @@ class Base16 extends Binary
             throw new \InvalidArgumentException('First argument must be a Hexadecimal value');
         }
 
+        // Remove "0x" prefix
+        if (substr($val, 0, 2) === "0x") {
+            $val = substr($val, 2);
+        }
+
+        // Even-out uneven number of hexits
         if (strlen($val) % 2 !== 0) {
             $val = "0" . $val;
         }
 
-        return substr($val, 0, 2) === "0x" ? substr($val, 2) : $val;
+        return $val;
     }
 }
