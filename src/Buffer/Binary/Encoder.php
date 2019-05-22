@@ -14,6 +14,9 @@ declare(strict_types=1);
 
 namespace FurqanSiddiqui\DataTypes\Buffer\Binary;
 
+use FurqanSiddiqui\BcMath\BcNumber;
+use FurqanSiddiqui\DataTypes\Base16;
+use FurqanSiddiqui\DataTypes\Base64;
 use FurqanSiddiqui\DataTypes\Binary;
 
 /**
@@ -35,37 +38,50 @@ class Encoder
     }
 
     /**
-     * @return string|null
+     * @return BcNumber
      */
-    public function raw(): ?string
+    public function base10(): BcNumber
     {
-        return $this->binary->raw();
+        return $this->BcNumber();
     }
 
     /**
-     * @return string
+     * @return BcNumber
      */
-    public function base64(): string
+    public function decimals(): BcNumber
     {
-        return base64_encode($this->binary->raw() ?? "");
+        return $this->BcNumber();
     }
 
     /**
-     * @param bool|null $prefixed
-     * @return string
+     * @return BcNumber
      */
-    public function base16(bool $prefixed = false): string
+    public function BcNumber(): BcNumber
     {
-        $prefix = $prefixed ? "0x" : "";
-        return $prefix . bin2hex($this->binary->raw() ?? "");
+        return BcNumber::Decode($this->base16());
     }
 
     /**
-     * @param bool $prefixed
-     * @return string
+     * @return Base64
      */
-    public function hex(bool $prefixed = false): string
+    public function base64(): Base64
     {
-        return $this->base16($prefixed);
+        return new Base64(base64_encode($this->binary->raw() ?? ""));
+    }
+
+    /**
+     * @return Base16
+     */
+    public function base16(): Base16
+    {
+        return new Base16(bin2hex($this->binary->raw() ?? ""));
+    }
+
+    /**
+     * @return Base16
+     */
+    public function hex(): Base16
+    {
+        return $this->base16();
     }
 }

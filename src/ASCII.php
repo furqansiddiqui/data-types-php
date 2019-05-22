@@ -23,6 +23,20 @@ use FurqanSiddiqui\DataTypes\Buffer\AbstractStringType;
 class ASCII extends AbstractStringType
 {
     /**
+     * @param string|null $data
+     * @return string
+     */
+    public function validatedDataTypeValue(?string $data): string
+    {
+        $data = parent::validatedDataTypeValue($data);
+        if (DataTypes::isUtf8($data)) {
+            throw new \InvalidArgumentException('ASCII must not contain UTF8 characters');
+        }
+
+        return $data;
+    }
+
+    /**
      * Encodes ASCII string into Hexits, This may be used instead of Base64 encoding if necessary
      * @param string $str
      * @return self

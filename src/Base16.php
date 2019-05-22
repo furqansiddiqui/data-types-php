@@ -14,51 +14,60 @@ declare(strict_types=1);
 
 namespace FurqanSiddiqui\DataTypes;
 
+use FurqanSiddiqui\DataTypes\Buffer\AbstractBuffer;
+
 /**
  * Class Base16
  * @package FurqanSiddiqui\DataTypes
  */
-class Base16 extends Binary
+class Base16 extends AbstractBuffer
 {
     /**
-     * Base16 constructor.
-     * @param string $hexits
-     */
-    public function __construct(string $hexits)
-    {
-        parent::__construct(hex2bin(self::checkHexits($hexits)));
-    }
-
-    /**
-     * @param bool|null $prefixed
+     * @param string|null $data
      * @return string
      */
-    public function hexits(?bool $prefixed = false): string
+    public function validatedDataTypeValue(?string $data): string
     {
-        return $this->get()->base16($prefixed);
-    }
-
-    /**
-     * Checks if argument is valid Base16, evens if uneven, and removes "0x" prefix if found
-     * @param $val
-     * @return string
-     */
-    private static function checkHexits($val): string
-    {
-        if (!DataTypes::isBase16($val)) {
+        if (!DataTypes::isBase16($data)) {
             throw new \InvalidArgumentException('First argument must be a Hexadecimal value');
         }
 
         // Remove "0x" prefix
-        if (substr($val, 0, 2) === "0x") {
-            $val = substr($val, 2);
+        if (substr($data, 0, 2) === "0x") {
+            $data = substr($data, 2);
         }
 
         // Even-out uneven number of hexits
-        if (strlen($val) % 2 !== 0) {
-            $val = "0" . $val;
+        if (strlen($data) % 2 !== 0) {
+            $data = "0" . $data;
         }
 
-        return $val;
+        return $data;
+    }
+
+    /**
+     * @param bool $prefixed
+     * @return string
+     */
+    public function hexits(bool $prefixed = false): string
+    {
+        $prefix = $prefixed === true ? "0x" : "";
+        return $prefix . $this->data();
+    }
+
+    /**
+     * @return Binary
+     */
+    public function binary(): Binary
+    {
+        return new Binary(hex2bin($this->data()));
+    }
+
+    /**
+     * @return Binary
+     */
+    public function getBinary(): Binary
+    {
+        return $this->binary();
     }
 }

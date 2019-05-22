@@ -41,7 +41,7 @@ class Hashing
      */
     private function result(string $bytes): Binary
     {
-        return $this->binary->set($bytes);
+        return new Binary($bytes);
     }
 
     /**

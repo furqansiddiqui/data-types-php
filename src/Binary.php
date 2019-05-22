@@ -43,7 +43,7 @@ class Binary extends AbstractBuffer
         return [
             "bytes" => $this->size()->bytes(),
             "bits" => $this->size()->bits(),
-            "value" => $this->get()->base16(true) // 0x prefixed
+            "value" => $this->encode()->base16() // 0x prefixed
         ];
     }
 
@@ -52,7 +52,7 @@ class Binary extends AbstractBuffer
      */
     public function raw(): ?string
     {
-        return parent::data();
+        return $this->data();
     }
 
     /**
@@ -62,17 +62,16 @@ class Binary extends AbstractBuffer
      */
     public function bytes(?int $start = null, ?int $end = null): ?string
     {
-        return parent::data($start, $end);
+        return $this->data($start, $end);
     }
 
     /**
-     * @param int|null $start
-     * @param int|null $end
-     * @return Binary
+     * @param $data
+     * @return string
      */
-    public function copy(?int $start = null, ?int $end = null): Binary
+    public function validatedDataTypeValue(?string $data): string
     {
-        return new Binary($this->bytes($start, $end));
+        return $data ?? "";
     }
 
     /**
@@ -80,41 +79,19 @@ class Binary extends AbstractBuffer
      */
     public function get(): Encoder
     {
+        return $this->encode();
+    }
+
+    /**
+     * @return Encoder
+     */
+    public function encode(): Encoder
+    {
         if (!$this->encoder) {
             $this->encoder = new Encoder($this);
         }
 
         return $this->encoder;
-    }
-
-    /**
-     * @param string|null $data
-     * @return Binary
-     */
-    public function set(?string $data): Binary
-    {
-        parent::set($data);
-        return $this;
-    }
-
-    /**
-     * @param string $binary
-     * @return Binary
-     */
-    public function append(string $binary): Binary
-    {
-        $this->set($this->raw() . $binary);
-        return $this;
-    }
-
-    /**
-     * @param string $binary
-     * @return Binary
-     */
-    public function prepend(string $binary): Binary
-    {
-        $this->set($binary . $this->raw());
-        return $this;
     }
 
     /**

@@ -14,17 +14,19 @@ declare(strict_types=1);
 
 namespace FurqanSiddiqui\DataTypes;
 
+use FurqanSiddiqui\DataTypes\Buffer\AbstractBuffer;
+
 /**
  * Class Base64
  * @package FurqanSiddiqui\DataTypes
  */
-class Base64 extends Binary
+class Base64 extends AbstractBuffer
 {
     /**
-     * Base64 constructor.
-     * @param string $data
+     * @param string|null $data
+     * @return string
      */
-    public function __construct(string $data)
+    public function validatedDataTypeValue(?string $data): string
     {
         if (!DataTypes::isBase64($data)) {
             throw new \InvalidArgumentException('First argument must be a Base64 encoded string');
@@ -35,7 +37,7 @@ class Base64 extends Binary
             throw new \UnexpectedValueException('Base64 decode failed');
         }
 
-        parent::__construct($decoded);
+        return $data;
     }
 
     /**
@@ -43,7 +45,7 @@ class Base64 extends Binary
      */
     public function encoded(): string
     {
-        return base64_encode($this->data);
+        return $this->data();
     }
 
     /**
@@ -52,5 +54,21 @@ class Base64 extends Binary
     public function getBase64Encoded(): string
     {
         return $this->encoded();
+    }
+
+    /**
+     * @return Binary
+     */
+    public function binary(): Binary
+    {
+        return new Binary(base64_decode($this->data()));
+    }
+
+    /**
+     * @return Binary
+     */
+    public function getBinary(): Binary
+    {
+        return $this->binary();
     }
 }

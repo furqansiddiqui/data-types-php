@@ -39,6 +39,12 @@ abstract class AbstractBuffer
     {
         $concat = "";
         foreach ($buffers as $buffer) {
+            if (!$buffer instanceof static) {
+                throw new \RuntimeException(
+                    sprintf('Concatenation expects all buffers to by of type "%s"', static::class)
+                );
+            }
+
             $concat .= $buffer->data();
         }
 
@@ -52,7 +58,12 @@ abstract class AbstractBuffer
     public function __construct(?string $data = null)
     {
         $this->readOnly = false;
-        $this->set($data);
+        $this->data = "";
+        $this->len = 0;
+
+        if ($data) {
+            $this->set($data);
+        }
     }
 
     /**
@@ -85,7 +96,7 @@ abstract class AbstractBuffer
      * @param $data
      * @return string
      */
-    abstract protected function validatedDataTypeValue($data): string;
+    abstract protected function validatedDataTypeValue(?string $data): string;
 
     /**
      * @param string|null $data
@@ -98,12 +109,46 @@ abstract class AbstractBuffer
         }
 
         $validated = $this->validatedDataTypeValue($data);
-        if (!is_string($validated)) {
-            throw new \InvalidArgumentException('Invalid data type value');
-        }
-
         $this->data = $validated;
         $this->len = strlen($this->data);
+        return $this;
+    }
+
+    /**
+     * @param string $data
+     * @return $this
+     */
+    public function append($data)
+    {
+        if ($data instanceof AbstractBuffer) {
+            $data = $data->data();
+        }
+
+        if (!is_string($data)) {
+            throw new \InvalidArgumentException('Appending data must be of type String or a Buffer');
+        }
+
+        $appended = $this->data() . $data;
+        $this->set($appended);
+        return $this;
+    }
+
+    /**
+     * @param $data
+     * @return $this
+     */
+    public function prepend($data)
+    {
+        if ($data instanceof AbstractBuffer) {
+            $data = $data->data();
+        }
+
+        if (!is_string($data)) {
+            throw new \InvalidArgumentException('Prepend data must be of type String or a Buffer');
+        }
+
+        $prepended = $data . $this->data();
+        $this->set($prepended);
         return $this;
     }
 
@@ -196,6 +241,19 @@ abstract class AbstractBuffer
     {
         $this->readOnly = $set;
         return $this;
+    }
+
+    /**
+     * @param \Closure $callback
+     */
+    public function apply(\Closure $callback): void
+    {
+        $new = $callback($this->data);
+        if (!is_string($new)) {
+            throw new \UnexpectedValueException('Callback method supplied to "apply" method must return String');
+        }
+
+        $this->set($new);
     }
 
     /**

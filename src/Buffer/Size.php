@@ -43,14 +43,6 @@ class Size
     /**
      * @return int
      */
-    public function hexits(): int
-    {
-        return $this->buffer->sizeInBytes * 2;
-    }
-
-    /**
-     * @return int
-     */
     public function bytes(): int
     {
         return $this->buffer->sizeInBytes;

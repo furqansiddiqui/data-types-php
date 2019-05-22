@@ -22,6 +22,15 @@ namespace FurqanSiddiqui\DataTypes\Buffer;
 abstract class AbstractStringType extends AbstractBuffer
 {
     /**
+     * @param string|null $data
+     * @return string
+     */
+    public function validatedDataTypeValue(?string $data): string
+    {
+        return $data ?? "";
+    }
+
+    /**
      * @param int|null $start
      * @param int|null $length
      * @return string|null

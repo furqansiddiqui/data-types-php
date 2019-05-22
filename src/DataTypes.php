@@ -20,6 +20,11 @@ namespace FurqanSiddiqui\DataTypes;
  */
 class DataTypes
 {
+    /** string Version (Major.Minor.Release-Suffix) */
+    public const VERSION = "0.2.10";
+    /** int Version (Major * 10000 + Minor * 100 + Release) */
+    public const VERSION_ID = 210;
+
     /**
      * Checks if argument is of type String and encoded in Base16
      * @param $val
@@ -52,10 +57,10 @@ class DataTypes
 
     /**
      * Checks if string may have UTF8 characters
-     * @param $val
+     * @param string $val
      * @return bool
      */
-    public static function isUtf8($val): bool
+    public static function isUtf8(string $val): bool
     {
         return strlen($val) !== mb_strlen($val) ? true : false;
     }
