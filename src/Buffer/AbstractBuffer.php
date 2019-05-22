@@ -22,12 +22,12 @@ namespace FurqanSiddiqui\DataTypes\Buffer;
 abstract class AbstractBuffer
 {
     /** @var null|string */
-    protected $data;
+    private $data;
     /** @var int */
-    protected $len;
-
+    private $len;
     /** @var bool */
     private $readOnly;
+
     /** @var null|Size */
     private $size;
 
@@ -39,6 +39,18 @@ abstract class AbstractBuffer
     {
         $this->readOnly = false;
         $this->set($data);
+    }
+
+    /**
+     * @return array
+     */
+    public function __debugInfo()
+    {
+        return [
+            "bytes" => $this->size()->bytes(),
+            "bits" => $this->size()->bits(),
+            "data" => $this->data
+        ];
     }
 
     /**
@@ -100,6 +112,22 @@ abstract class AbstractBuffer
     public function copy(?int $start = null, ?int $end = null)
     {
         return new static($this->data($start, $end) ?? "");
+    }
+
+    /**
+     * @return AbstractBuffer
+     */
+    public function clone()
+    {
+        return $this->copy();
+    }
+
+    /**
+     * @return AbstractBuffer
+     */
+    public function __clone()
+    {
+        return $this->clone();
     }
 
     /**
