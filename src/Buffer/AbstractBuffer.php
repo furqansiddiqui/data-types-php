@@ -32,6 +32,20 @@ abstract class AbstractBuffer
     private $size;
 
     /**
+     * @param AbstractBuffer ...$buffers
+     * @return AbstractBuffer
+     */
+    public static function Concat(AbstractBuffer ...$buffers)
+    {
+        $concat = "";
+        foreach ($buffers as $buffer) {
+            $concat .= $buffer->data();
+        }
+
+        return new static($concat);
+    }
+
+    /**
      * AbstractBuffer constructor.
      * @param string|null $data
      */
@@ -68,6 +82,12 @@ abstract class AbstractBuffer
     }
 
     /**
+     * @param $data
+     * @return string
+     */
+    abstract protected function validatedDataTypeValue($data): string;
+
+    /**
      * @param string|null $data
      * @return $this
      */
@@ -77,7 +97,12 @@ abstract class AbstractBuffer
             throw new \BadMethodCallException('Buffer is in read-only state');
         }
 
-        $this->data = $data;
+        $validated = $this->validatedDataTypeValue($data);
+        if (!is_string($validated)) {
+            throw new \InvalidArgumentException('Invalid data type value');
+        }
+
+        $this->data = $validated;
         $this->len = strlen($this->data);
         return $this;
     }
@@ -161,26 +186,6 @@ abstract class AbstractBuffer
     public function trim(?int $start = null, ?int $length = null)
     {
         return $this->substr($start, $length);
-    }
-
-    /**
-     * @param string $data
-     * @return $this
-     */
-    public function append(string $data)
-    {
-        $this->set($this->data . $data);
-        return $this;
-    }
-
-    /**
-     * @param string $data
-     * @return $this
-     */
-    public function prepend(string $data)
-    {
-        $this->set($data . $this->data);
-        return $this;
     }
 
     /**
