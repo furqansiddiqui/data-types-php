@@ -164,22 +164,22 @@ abstract class AbstractBuffer
     }
 
     /**
-     * @param string $binary
+     * @param string $data
      * @return $this
      */
-    public function append(string $binary)
+    public function append(string $data)
     {
-        $this->set($this->data . $binary);
+        $this->set($this->data . $data);
         return $this;
     }
 
     /**
-     * @param string $binary
+     * @param string $data
      * @return $this
      */
-    public function prepend(string $binary)
+    public function prepend(string $data)
     {
-        $this->set($binary . $this->data);
+        $this->set($data . $this->data);
         return $this;
     }
 
