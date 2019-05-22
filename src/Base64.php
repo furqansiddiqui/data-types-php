@@ -45,4 +45,12 @@ class Base64 extends Binary
     {
         return base64_encode($this->data);
     }
+
+    /**
+     * @return string
+     */
+    public function getBase64Encoded(): string
+    {
+        return $this->encoded();
+    }
 }
