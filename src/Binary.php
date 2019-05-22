@@ -30,6 +30,26 @@ class Binary extends AbstractBuffer
     /**
      * @return string|null
      */
+    public function __toString()
+    {
+        return $this->raw();
+    }
+
+    /**
+     * @return array
+     */
+    public function __debugInfo()
+    {
+        return [
+            "bytes" => $this->size()->bytes(),
+            "bits" => $this->size()->bits(),
+            "value" => $this->get()->base16(true) // 0x prefixed
+        ];
+    }
+
+    /**
+     * @return string|null
+     */
     public function raw(): ?string
     {
         return parent::data();
