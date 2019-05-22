@@ -1,7 +1,6 @@
 {
   "name": "furqansiddiqui/data-types-php",
   "description": "PHP data types handling tool",
-  "version": "0.2",
   "type": "library",
   "homepage": "https://github.com/furqansiddiqui/data-types-php",
   "license": "MIT",
