@@ -245,6 +245,24 @@ abstract class AbstractBuffer
     }
 
     /**
+     * Compare 2 Buffers, Returns true if they are of same type, size and buffered data matches
+     * @param AbstractBuffer $buffer
+     * @return bool
+     */
+    public function equals(AbstractBuffer $buffer): bool
+    {
+        if (get_class($this) === get_class($buffer)) {
+            if ($this->size()->size() === $buffer->size()->size()) {
+                if ($this->data() === $buffer->data()) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    /**
      * @param bool $set
      * @return $this
      */
