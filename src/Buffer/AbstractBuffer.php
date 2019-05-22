@@ -102,18 +102,26 @@ abstract class AbstractBuffer
     abstract protected function validatedDataTypeValue(?string $data): string;
 
     /**
-     * @param string|null $data
-     * @return $this
+     * @param string $validatedData
      */
-    public function set(?string $data)
+    private function setBufferData(string $validatedData): void
     {
         if ($this->readOnly) {
             throw new \BadMethodCallException('Buffer is in read-only state');
         }
 
-        $validated = $this->validatedDataTypeValue($data);
-        $this->data = $validated;
+        $this->data = $validatedData;
         $this->len = strlen($this->data);
+    }
+
+    /**
+     * @param string|null $data
+     * @return $this
+     */
+    public function set(?string $data)
+    {
+        $validated = $this->validatedDataTypeValue($data);
+        $this->setBufferData($validated);
         return $this;
     }
 
@@ -131,8 +139,8 @@ abstract class AbstractBuffer
             throw new \InvalidArgumentException('Appending data must be of type String or a Buffer');
         }
 
-        $appended = $this->data() . $data;
-        $this->set($appended);
+        $validated = $this->validatedDataTypeValue($data);
+        $this->setBufferData($this->data . $validated);
         return $this;
     }
 
@@ -150,8 +158,8 @@ abstract class AbstractBuffer
             throw new \InvalidArgumentException('Prepend data must be of type String or a Buffer');
         }
 
-        $prepended = $data . $this->data();
-        $this->set($prepended);
+        $validated = $this->validatedDataTypeValue($data);
+        $this->setBufferData($validated . $this->data);
         return $this;
     }
 
