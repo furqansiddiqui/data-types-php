@@ -34,7 +34,7 @@ abstract class AbstractBuffer
 
     /**
      * @param AbstractBuffer ...$buffers
-     * @return AbstractBuffer
+     * @return static
      */
     public static function Concat(AbstractBuffer ...$buffers)
     {
@@ -196,7 +196,7 @@ abstract class AbstractBuffer
     }
 
     /**
-     * @return AbstractBuffer
+     * @return static
      */
     public function clone()
     {
@@ -204,7 +204,7 @@ abstract class AbstractBuffer
     }
 
     /**
-     * @return AbstractBuffer
+     * @return static
      */
     public function __clone()
     {
@@ -237,7 +237,7 @@ abstract class AbstractBuffer
     /**
      * @param int|null $start
      * @param int|null $length
-     * @return AbstractBuffer
+     * @return static
      */
     public function trim(?int $start = null, ?int $length = null)
     {
