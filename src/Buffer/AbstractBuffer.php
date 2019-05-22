@@ -18,6 +18,7 @@ namespace FurqanSiddiqui\DataTypes\Buffer;
  * Class AbstractBuffer
  * @package FurqanSiddiqui\DataTypes\Buffer
  * @property-read int $sizeInBytes
+ * @property-read int $charCount
  */
 abstract class AbstractBuffer
 {
@@ -28,7 +29,7 @@ abstract class AbstractBuffer
     /** @var bool */
     private $readOnly;
 
-    /** @var null|Size */
+    /** @var null|LengthSize */
     private $size;
 
     /**
@@ -72,8 +73,7 @@ abstract class AbstractBuffer
     public function __debugInfo()
     {
         return [
-            "bytes" => $this->size()->bytes(),
-            "bits" => $this->size()->bits(),
+            "length" => $this->len,
             "data" => $this->data
         ];
     }
@@ -87,6 +87,8 @@ abstract class AbstractBuffer
         switch ($prop) {
             case "sizeInBytes":
                 return $this->len;
+            case "charCount":
+                return mb_strlen($this->data);
         }
 
         throw new \DomainException('Cannot get value of inaccessible property');
@@ -177,7 +179,7 @@ abstract class AbstractBuffer
     /**
      * @param int|null $start
      * @param int|null $end
-     * @return AbstractBuffer
+     * @return static
      */
     public function copy(?int $start = null, ?int $end = null)
     {
@@ -257,22 +259,14 @@ abstract class AbstractBuffer
     }
 
     /**
-     * @return Size
+     * @return LengthSize
      */
-    public function size(): Size
+    public function size(): LengthSizeInterface
     {
         if (!$this->size) {
-            $this->size = new Size($this);
+            $this->size = new LengthSize($this);
         }
 
         return $this->size;
-    }
-
-    /**
-     * @return Size
-     */
-    public function length(): Size
-    {
-        return $this->size();
     }
 }

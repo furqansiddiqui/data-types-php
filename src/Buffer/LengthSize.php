@@ -15,13 +15,13 @@ declare(strict_types=1);
 namespace FurqanSiddiqui\DataTypes\Buffer;
 
 /**
- * Class Size
+ * Class LengthSize
  * @package FurqanSiddiqui\DataTypes\Buffer
  */
-class Size
+class LengthSize implements LengthSizeInterface
 {
     /** @var AbstractBuffer */
-    private $buffer;
+    protected $buffer;
 
     /**
      * Size constructor.
@@ -35,15 +35,15 @@ class Size
     /**
      * @return int
      */
-    public function bits(): int
+    public function chars(): int
     {
-        return $this->buffer->sizeInBytes * 8;
+        return $this->buffer->charCount;
     }
 
     /**
      * @return int
      */
-    public function bytes(): int
+    public function size(): int
     {
         return $this->buffer->sizeInBytes;
     }

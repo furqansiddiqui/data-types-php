@@ -17,6 +17,8 @@ namespace FurqanSiddiqui\DataTypes;
 use FurqanSiddiqui\DataTypes\Buffer\AbstractBuffer;
 use FurqanSiddiqui\DataTypes\Buffer\Binary\Encoder;
 use FurqanSiddiqui\DataTypes\Buffer\Binary\Hashing;
+use FurqanSiddiqui\DataTypes\Buffer\Binary\LengthSize;
+use FurqanSiddiqui\DataTypes\Buffer\LengthSizeInterface;
 
 /**
  * Class Binary
@@ -24,6 +26,8 @@ use FurqanSiddiqui\DataTypes\Buffer\Binary\Hashing;
  */
 class Binary extends AbstractBuffer
 {
+    /** @var LengthSize */
+    private $size;
     /** @var null|Encoder */
     private $encoder;
 
@@ -43,7 +47,8 @@ class Binary extends AbstractBuffer
         return [
             "bytes" => $this->size()->bytes(),
             "bits" => $this->size()->bits(),
-            "value" => $this->encode()->base16() // 0x prefixed
+            "hexits" => $this->size()->hexits(),
+            "value" => $this->encode()->base16()->hexits(true) // 0x prefixed
         ];
     }
 
@@ -100,5 +105,17 @@ class Binary extends AbstractBuffer
     public function hash(): Hashing
     {
         return new Hashing($this);
+    }
+
+    /**
+     * @return LengthSize
+     */
+    public function size(): LengthSizeInterface
+    {
+        if (!$this->size) {
+            $this->size = new LengthSize($this);
+        }
+
+        return $this->size;
     }
 }
