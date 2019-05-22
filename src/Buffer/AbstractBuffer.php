@@ -73,7 +73,8 @@ abstract class AbstractBuffer
     public function __debugInfo()
     {
         return [
-            "length" => $this->len,
+            "length" => $this->size()->chars(),
+            "size" => $this->size()->size(),
             "data" => $this->data
         ];
     }
