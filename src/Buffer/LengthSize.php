@@ -43,8 +43,16 @@ class LengthSize implements LengthSizeInterface
     /**
      * @return int
      */
-    public function size(): int
+    public function bytes(): int
     {
         return $this->buffer->sizeInBytes;
+    }
+
+    /**
+     * @return int
+     */
+    public function size(): int
+    {
+        return $this->bytes();
     }
 }

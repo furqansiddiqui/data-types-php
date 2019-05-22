@@ -30,5 +30,11 @@ interface LengthSizeInterface
      * Size of buffer in bytes
      * @return int
      */
+    public function bytes(): int;
+
+    /**
+     * Size of buffer in bytes
+     * @return int
+     */
     public function size(): int;
 }
