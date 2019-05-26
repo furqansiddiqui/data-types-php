@@ -15,6 +15,7 @@ declare(strict_types=1);
 namespace FurqanSiddiqui\DataTypes;
 
 use FurqanSiddiqui\DataTypes\Buffer\AbstractBuffer;
+use FurqanSiddiqui\DataTypes\Buffer\Binary\ByteReader;
 use FurqanSiddiqui\DataTypes\Buffer\Binary\Encoder;
 use FurqanSiddiqui\DataTypes\Buffer\Binary\Hashing;
 use FurqanSiddiqui\DataTypes\Buffer\Binary\LengthSize;
@@ -117,5 +118,13 @@ class Binary extends AbstractBuffer
         }
 
         return $this->size;
+    }
+
+    /**
+     * @return ByteReader
+     */
+    public function read(): ByteReader
+    {
+        return new ByteReader($this);
     }
 }
