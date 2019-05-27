@@ -68,6 +68,7 @@ class ByteReader
         $read = substr($this->buffer, $this->pointer, $bytes);
         if ($read) {
             $this->pointer += $bytes;
+            return $read;
         }
 
         return null;
