@@ -26,6 +26,8 @@ class ByteReader
     private $buffer;
     /** @var int */
     private $pointer;
+    /** @var int */
+    private $len;
 
     /**
      * ByteReader constructor.
@@ -34,7 +36,32 @@ class ByteReader
     public function __construct(Binary $binary)
     {
         $this->buffer = $binary->raw() ?? "";
+        $this->len = strlen($this->buffer);
         $this->pointer = 0;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isEnd(): bool
+    {
+        return $this->pointer >= $this->len ? true : false;
+    }
+
+    /**
+     * @return int
+     */
+    public function len(): int
+    {
+        return $this->len;
+    }
+
+    /**
+     * @return int
+     */
+    public function pos(): int
+    {
+        return $this->pointer;
     }
 
     /**

@@ -21,7 +21,7 @@ namespace FurqanSiddiqui\DataTypes;
 class DataTypes
 {
     /** string Version (Major.Minor.Release-Suffix) */
-    public const VERSION = "0.2.21";
+    public const VERSION = "0.2.22";
     /** int Version (Major * 10000 + Minor * 100 + Release) */
     public const VERSION_ID = 221;
 
