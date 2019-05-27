@@ -21,9 +21,9 @@ namespace FurqanSiddiqui\DataTypes;
 class DataTypes
 {
     /** string Version (Major.Minor.Release-Suffix) */
-    public const VERSION = "0.2.20";
+    public const VERSION = "0.2.21";
     /** int Version (Major * 10000 + Minor * 100 + Release) */
-    public const VERSION_ID = 220;
+    public const VERSION_ID = 221;
 
     /**
      * Checks if argument is of type String and encoded in Base16
