@@ -64,4 +64,14 @@ class DataTypes
     {
         return strlen($val) !== mb_strlen($val) ? true : false;
     }
+
+    /**
+     * Checks is string is comprised of only 1s and 0s
+     * @param $val
+     * @return bool
+     */
+    public static function isBitwise($val): bool
+    {
+        return is_string($val) && preg_match('/^[01]+$/', $val) ? true : false;
+    }
 }
