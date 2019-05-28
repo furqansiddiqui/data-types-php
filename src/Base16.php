@@ -14,6 +14,7 @@ declare(strict_types=1);
 
 namespace FurqanSiddiqui\DataTypes;
 
+use FurqanSiddiqui\BcMath\BcBaseConvert;
 use FurqanSiddiqui\DataTypes\Buffer\AbstractBuffer;
 
 /**
@@ -53,6 +54,30 @@ class Base16 extends AbstractBuffer
     {
         $prefix = $prefixed === true ? "0x" : "";
         return $prefix . $this->data();
+    }
+
+    /**
+     * @return Bitwise
+     */
+    public function bitwise(): Bitwise
+    {
+        $hexits = $this->data();
+        if (!$hexits) {
+            throw new \UnexpectedValueException('Base16 buffer is NULL or empty');
+        }
+
+        // Make sure nibbles are even
+        if (strlen($hexits) % 2 !== 0) {
+            $hexits = "0" . $hexits;
+        }
+
+        $expectedBits = strlen($hexits) * 4;
+        $bitwise = BcBaseConvert::BaseConvert($hexits, 16, 2);
+        if (strlen($bitwise) < $expectedBits) {
+            $bitwise = str_repeat("0", $expectedBits - strlen($bitwise)) . $bitwise;
+        }
+
+        return new Bitwise($bitwise);
     }
 
     /**

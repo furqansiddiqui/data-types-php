@@ -109,6 +109,14 @@ class Binary extends AbstractBuffer
     }
 
     /**
+     * @return Bitwise
+     */
+    public function bitwise(): Bitwise
+    {
+        return $this->encode()->base16()->bitwise();
+    }
+
+    /**
      * @return LengthSize
      */
     public function size(): LengthSizeInterface
